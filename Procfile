@@ -1,1 +1,1 @@
-web: cd frontend %% yarn run dev_start
+web: yarn run dev_start:frontend
