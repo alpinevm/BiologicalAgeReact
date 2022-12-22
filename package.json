@@ -11,10 +11,10 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev_start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "dev_build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "dev_test": "react-scripts test",
+    "dev_eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
