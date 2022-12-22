@@ -1,1 +1,1 @@
-web: npx serve -s build -p $PORT
+web: cd frontend %% yarn run dev_start
