@@ -25,7 +25,7 @@ export default function App() {
 	};
 
 	return (
-		<div className='app'>
+		<div className='app' >
 			{!showQuestions ? ( <UserForm setUser={setUser} setShowQuestions={setShowQuestions}/> ) : (
 			
 			showEndScreen ? (
