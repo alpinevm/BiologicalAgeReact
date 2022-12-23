@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI, APIRouter
 from fastapi.exceptions import HTTPException
+from fastapi.middleware.cors import CORSMiddleware 
 from fastapi.responses import JSONResponse
 
 from server.key_handler import RedisHandler 
@@ -11,6 +12,14 @@ app: FastAPI = FastAPI()
 router: APIRouter = APIRouter()
 key_handler: RedisHandler = RedisHandler()
 email_handler: EmailSender = EmailSender()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 @router.get("/health")
 async def health() -> dict:
