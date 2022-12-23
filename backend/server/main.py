@@ -42,4 +42,11 @@ async def token(request: NewToken) -> JSONResponse:
     key: str = os.urandom(16).hex()
     key_handler.set_key(key)
     return JSONResponse({"detail": "Link generated successfully", "link": f"{os.environ['FRONTEND_URL']}?risen_key={key}"}) 
+
+@router.get("/validate")
+async def validate_token(risen_key: str) -> JSONResponse:
+    if not key_handler.validate_key(risen_key):
+        raise HTTPException(403, "Invalid token") 
+    return JSONResponse({"detail": "Token is valid"})
+
 app.include_router(router)        
