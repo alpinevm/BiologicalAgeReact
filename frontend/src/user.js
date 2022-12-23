@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 export default function UserForm({ setUser, setShowQuestions }) {
     const [inputs, setInputs] = useState({});
-  
     const handleChange = (event) => {
       const name = event.target.name;
       const value = event.target.value;
       setInputs(values => ({...values, [name]: value}))
     }
   
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      setUser(inputs);
-      setShowQuestions(true);
+	const notify = () => toast.error('Please provide all information',{
+	  duration: 3000,
+	  position: 'bottom-center',
+      style: {background:"#252d4a", color:"white"}
+	});
+	const handleSubmit = (event) => {
+	  event.preventDefault();
+	  if(inputs['username'] !== undefined && inputs['age'] !== undefined){ 
+		  setUser(inputs);
+		  setShowQuestions(true);	
+	  }
+	  else {	  
+		notify();	
+	  }
     }
-  
+
     return (
-        <>
-        <div className="login-box">
+		 <>
+		<div className="login-box">
+
         <h1>Get Started</h1>
             <form onSubmit={handleSubmit}>
             <div className="user-box">
@@ -41,6 +53,7 @@ export default function UserForm({ setUser, setShowQuestions }) {
                 <input value="Next" type="submit" className="submit-button"/>
             </form>
         </div>
+
       </>
     )
   }
