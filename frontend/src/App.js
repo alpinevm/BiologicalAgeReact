@@ -52,7 +52,7 @@ export default function App() {
 			{!showQuestions ? ( <UserForm setUser={setUser} setShowQuestions={setShowQuestions}/> ) : (	
 			showEndScreen ? (
 				<div className='score-section'>
-					Your results have been shared with your medical professional.
+					Your results have been shared with your health coach.
 				</div>
 			) : (
 				<>
