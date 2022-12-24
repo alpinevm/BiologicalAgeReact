@@ -37,8 +37,6 @@ export default function UserForm({ setUser, setShowQuestions }) {
 				setShowQuestions(true);	
 			  })
 			  .catch(err => {
-				  alert(risen_key);
-				  alert(err);
 				  notifyTokenFailure()
 			  }); 
 	  }
