@@ -3,22 +3,31 @@ from fastapi import FastAPI, APIRouter
 from fastapi.exceptions import HTTPException
 from fastapi.middleware.cors import CORSMiddleware 
 from fastapi.responses import JSONResponse
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
+
 
 from server.key_handler import RedisHandler 
 from server.models import AgeData, NewToken
 from server.email_handler import EmailSender
 
-app: FastAPI = FastAPI()
+middleware = [
+    Middleware(
+        CORSMiddleware,
+        allow_origins=['*'],
+        allow_credentials=True,
+        allow_methods=['*'],
+        allow_headers=['*']
+    )
+]
+
+app: FastAPI = FastAPI(middleware=middleware)
 router: APIRouter = APIRouter()
 key_handler: RedisHandler = RedisHandler()
 email_handler: EmailSender = EmailSender()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
+
+
 
 @router.get("/health")
 async def health() -> dict:
