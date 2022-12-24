@@ -31,6 +31,7 @@ async def health() -> dict:
 async def age_data(request: AgeData) -> JSONResponse:
     if not key_handler.validate_key(request.verification_key):
         raise HTTPException(403, "Invalid token") 
+     
     email_handler.send_data_email(str(request.json()))   
     key_handler.delete_key(request.verification_key)
     return JSONResponse({"detail": "Request handled successfully"}, 200)
