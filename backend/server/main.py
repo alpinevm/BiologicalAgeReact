@@ -1,4 +1,5 @@
 import os
+import json
 from fastapi import FastAPI, APIRouter
 from fastapi.exceptions import HTTPException
 from fastapi.middleware.cors import CORSMiddleware 
@@ -39,7 +40,7 @@ async def age_data(request: AgeData) -> JSONResponse:
     if not key_handler.validate_key(request.verification_key):
         raise HTTPException(403, "Invalid token") 
      
-    email_handler.send_data_email(request.json())
+    email_handler.send_data_email(json.loads(request.json()))
     key_handler.delete_key(request.verification_key)
     return JSONResponse({"detail": "Request handled successfully"}, 200)
 
