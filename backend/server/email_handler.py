@@ -5,6 +5,8 @@ class EmailSender:
     def __init__(self) -> None:
         self.client: yagmail.SMTP = yagmail.SMTP(os.environ['EMAIL_USERNAME'], os.environ['EMAIL_PASSWORD'])
     def _formatData(self, data) -> str:
+        print(data)
+        print(type(data))
         output: str = "<strong>CLIENT DATA</stong><br/><br/>"
         output += f"CLIENT: {data['first_name']}<br/>" 
         output += f"AGE: {data['age']}<br/>"
