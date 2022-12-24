@@ -12,7 +12,7 @@ class EmailSender:
             return "-"
         return "+"
 
-    def _formatQuestions(self, questions) -> tuple[int, str]:
+    def _formatQuestions(self, questions):
         bio_age_delta: int = 0
         question_html = "<strong>QUESTIONS</strong><br/><br/>"
         for question in sorted(questions, key=lambda d: d['ageDelta']):
