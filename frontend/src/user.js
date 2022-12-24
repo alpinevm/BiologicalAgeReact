@@ -13,13 +13,11 @@ export default function UserForm({ setUser, setShowQuestions }) {
 
 	const notify = () => toast.error('Please provide all information',{
 	  duration: 3000,
-	  position: 'bottom-center',
       style: {background:"#252d4a", color:"white"}
 	});
 
 	const notifyTokenFailure = () => toast.error('Please contact your health coach for a new link.',{
 	  duration: 3000,
-	  position: 'bottom-center',
 	  style: {background:"#252d4a", color:"white"}
 	});
 

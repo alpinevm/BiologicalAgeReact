@@ -45,9 +45,7 @@ export default function App() {
 	}
 
 	const handleAnswerOptionClick = (questionResponse) => {
-		console.log(waitingForServer);
 		if(waitingForServer){
-			console.log("Invalid");
 			return;
 		}
 		const question = {
