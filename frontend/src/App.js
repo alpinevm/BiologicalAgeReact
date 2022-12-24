@@ -37,15 +37,17 @@ export default function App() {
 				 setEndScreen(true);
 				 return `Success!`;
 			 },
-			 error: (e) => {
-				 return "Failed to share.";
+			 error: (err) => {
+				 return `Failed to share.`;
 			 }
 		   }
 		 );
 	}
 
 	const handleAnswerOptionClick = (questionResponse) => {
+		console.log(waitingForServer);
 		if(waitingForServer){
+			console.log("Invalid");
 			return;
 		}
 		const question = {
