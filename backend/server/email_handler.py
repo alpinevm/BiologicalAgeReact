@@ -6,12 +6,9 @@ class EmailSender:
         self.client: yagmail.SMTP = yagmail.SMTP(os.environ['EMAIL_USERNAME'], os.environ['EMAIL_PASSWORD'])
     
     def _getSign(self, num):
-        if num == 0:
-            return "", '<p style="color:#38761D;">'
-        if num < 0:
-            return "-", '<p style="color:#38761D;">'
-        return "+", '<p style="color:#FF0000;">'
-
+        if num <= 0:
+            return "", '<span style="color:#38761D;display:inline;">'
+        return "+", '<span style="color:#FF0000;display:inline;">'
 
     def _formatQuestions(self, questions):
         bio_age_delta: int = 0
@@ -19,7 +16,7 @@ class EmailSender:
         for question in sorted(questions, key=lambda d: d['ageDelta']):
             bio_age_delta += question['ageDelta'] 
             sign, style = self._getSign(question['ageDelta']) 
-            question_html += f"QUESTION: {question['question']}<br/>ANSWER: {question['answer']}, {style}{sign}{question['ageDelta']}</p><br/><br/>" 
+            question_html += f"QUESTION: {question['question']}<br/>ANSWER: {style}{question['answer']}, {sign}{question['ageDelta']}</span><br/><br/>" 
         return bio_age_delta, question_html
 
     def _formatData(self, data) -> str:
