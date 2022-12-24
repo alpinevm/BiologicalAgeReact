@@ -49,4 +49,4 @@ async def validate_token(risen_key: str) -> JSONResponse:
         raise HTTPException(403, "Invalid token") 
     return JSONResponse({"detail": "Token is valid"})
 
-app.include_router(router)        
+app.include_router(router) 

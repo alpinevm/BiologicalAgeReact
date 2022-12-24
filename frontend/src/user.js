@@ -18,10 +18,10 @@ export default function UserForm({ setUser, setShowQuestions }) {
 	});
 
 	const notifyTokenFailure = () => toast.error('Please contact your health coach for a new link.',{
-		  duration: 3000,
-		  position: 'bottom-center',
-		  style: {background:"#252d4a", color:"white"}
-		});
+	  duration: 3000,
+	  position: 'bottom-center',
+	  style: {background:"#252d4a", color:"white"}
+	});
 
 
 	const verifyToken = () => {
@@ -36,7 +36,11 @@ export default function UserForm({ setUser, setShowQuestions }) {
 				setUser(inputs);
 				setShowQuestions(true);	
 			  })
-			  .catch(err => notifyTokenFailure()); 
+			  .catch(err => {
+				  alert(risen_key);
+				  alert(err);
+				  notifyTokenFailure()
+			  }); 
 	  }
 	  else {	  
 		notify();	
