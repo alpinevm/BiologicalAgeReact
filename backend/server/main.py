@@ -14,8 +14,7 @@ from server.email_handler import EmailSender
 middleware = [
     Middleware(
         CORSMiddleware,
-        allow_origins=['*'],
-        allow_credentials=True,
+        allow_origins=['https://biologicalagereact-production.up.railway.app'],
         allow_methods=['*'],
         allow_headers=['*']
     )
