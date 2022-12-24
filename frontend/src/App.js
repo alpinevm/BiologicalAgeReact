@@ -9,6 +9,7 @@ export default function App() {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [showEndScreen, setEndScreen] = useState(false);
 	const [showQuestions, setShowQuestions] = useState(false);
+	const [waitingForServer, setWaitingForServer] = useState(false);
 	const [ageData, setAgeData] = useState([]);
 	const [user, setUser] = useState({});
 	const risen_key = (new URLSearchParams(window.location.search)).get("risen_key");
@@ -21,6 +22,7 @@ export default function App() {
 	}
 
 	const sendUserData = (questions) => {								
+		setWaitingForServer(true);
 		toast.promise(
 		  axios.post("https://backend-production-5b2e.up.railway.app/age-data", {
 		  "verification_key": risen_key,
@@ -29,17 +31,23 @@ export default function App() {
 		  "age": user.age,
 		}),
 		   {
+			 style: {background:"white", color:"#252d4a"},
 			 loading: 'Sharing with your health coach...',
 			 success: (data) => {
 				 setEndScreen(true);
 				 return `Success!`;
 			 },
-			 error: <b>Failed to share.</b>,
+			 error: (e) => {
+				 return "Failed to share.";
+			 }
 		   }
 		 );
 	}
 
 	const handleAnswerOptionClick = (questionResponse) => {
+		if(waitingForServer){
+			return;
+		}
 		const question = {
 			question: QUESTIONS[currentQuestion].questionText,
 			answer: questionResponse.answerText,
