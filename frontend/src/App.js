@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import toast  from 'react-hot-toast';
 import axios from 'axios';
 
 import { QUESTIONS } from './questions';
@@ -21,14 +21,22 @@ export default function App() {
 	}
 
 	const sendUserData = (questions) => {								
-		axios.post("https://backend-production-5b2e.up.railway.app/age-data", {
+		toast.promise(
+		  axios.post("https://backend-production-5b2e.up.railway.app/age-data", {
 		  "verification_key": risen_key,
 		  "question_responses": questions,
 		  "first_name": user.username,
 		  "age": user.age,
-		}).then(e => {
-			console.log(e);	
-		});
+		}),
+		   {
+			 loading: 'Sharing with your health coach...',
+			 success: (data) => {
+				 setEndScreen(true);
+				 return `Success!`;
+			 },
+			 error: <b>Failed to share.</b>,
+		   }
+		 );
 	}
 
 	const handleAnswerOptionClick = (questionResponse) => {
@@ -43,7 +51,6 @@ export default function App() {
 			setCurrentQuestion(nextQuestion);
 		} else {
 			sendUserData(ageData);
-			setEndScreen(true);
 		}
 	};
 
