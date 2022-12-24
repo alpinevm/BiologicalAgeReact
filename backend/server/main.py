@@ -29,13 +29,13 @@ email_handler: EmailSender = EmailSender()
 
 
 
-@router.get("/health")
+@app.get("/health")
 async def health() -> dict:
     return {
         "detail": "online"
     }
 
-@router.post("/age-data")
+@app.post("/age-data")
 async def age_data(request: AgeData) -> JSONResponse:
     if not key_handler.validate_key(request.verification_key):
         raise HTTPException(403, "Invalid token") 
@@ -44,7 +44,7 @@ async def age_data(request: AgeData) -> JSONResponse:
     key_handler.delete_key(request.verification_key)
     return JSONResponse({"detail": "Request handled successfully"}, 200)
 
-@router.post("/token")
+@app.post("/token")
 async def token(request: NewToken) -> JSONResponse:
     if not os.environ['REQUEST_TOKEN'] == request.request_token: 
         raise HTTPException(403, "Invalid token")
@@ -52,10 +52,9 @@ async def token(request: NewToken) -> JSONResponse:
     key_handler.set_key(key)
     return JSONResponse({"detail": "Link generated successfully", "link": f"{os.environ['FRONTEND_URL']}?risen_key={key}"}) 
 
-@router.get("/validate")
+@app.get("/validate")
 async def validate_token(risen_key: str) -> JSONResponse:
     if not key_handler.validate_key(risen_key):
         raise HTTPException(403, "Invalid token") 
     return JSONResponse({"detail": "Token is valid"})
 
-app.include_router(router) 
